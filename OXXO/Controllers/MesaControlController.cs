@@ -595,7 +595,7 @@ namespace OXXO.Controllers
                         Banco banco = new Banco
                         {
                             IdBanco = Convert.ToInt32(dataReader["IdBanco"]),
-                            BancoName = Convert.ToString(dataReader["Bancos"])
+                            Nombre = Convert.ToString(dataReader["Bancos"])
                         };
 
                         BancoList.Add(banco);

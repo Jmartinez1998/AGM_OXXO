@@ -256,7 +256,7 @@ namespace OXXO.Controllers
                         {
                             Banco clsBanco = new Banco();
                             clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                            clsBanco.BancoName = Convert.ToString(dr["Banco"]);
+                            clsBanco.Nombre = Convert.ToString(dr["Nombre"]);
 
                             ListaBancos.Add(clsBanco);
                         }

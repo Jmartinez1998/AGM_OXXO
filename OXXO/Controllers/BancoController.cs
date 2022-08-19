@@ -44,7 +44,7 @@ namespace OXXO.Controllers
                 if (!String.IsNullOrEmpty(NombreBanco) && !String.IsNullOrEmpty(Activo))
                 {
                     consulta = _db.Banco
-                        .Where(p => p.BancoName
+                        .Where(p => p.Nombre
                         .Contains(NombreBanco)).ToString();
 
                     // Cambir a linq o EF
@@ -80,7 +80,7 @@ namespace OXXO.Controllers
                                 Banco clsBanco = new Banco();
 
                                 clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                                clsBanco.BancoName = Convert.ToString(dr["BancoName"]);
+                                clsBanco.Nombre = Convert.ToString(dr["BancoName"]);
                                 clsBanco.Activo = Convert.ToInt32(dr["Activo"]);
 
 
@@ -137,7 +137,7 @@ namespace OXXO.Controllers
                             {
                                 command.CommandType = CommandType.StoredProcedure;
 
-                                command.Parameters.AddWithValue("@Banco", clsBanco.BancoName);
+                                command.Parameters.AddWithValue("@Banco", clsBanco.Nombre);
                                 //command.Parameters.AddWithValue("@Activo", clsBanco.Activo);
                                 command.Parameters.AddWithValue("@Usuario_FAI", currentUser);
 
@@ -206,7 +206,7 @@ namespace OXXO.Controllers
                         while (dr.Read())
                         {
                             clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                            clsBanco.BancoName = Convert.ToString(dr["Banco"]);
+                            clsBanco.Nombre = Convert.ToString(dr["Banco"]);
                             clsBanco.Activo = Convert.ToInt32(dr["Activo"]);
                         }
                     }
@@ -239,7 +239,7 @@ namespace OXXO.Controllers
                         {
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@IdBanco", clsBanco.IdBanco);
-                            command.Parameters.AddWithValue("@Banco", clsBanco.BancoName);
+                            command.Parameters.AddWithValue("@Banco", clsBanco.Nombre);
                             command.Parameters.AddWithValue("@Activo", clsBanco.Activo);
                             command.Parameters.AddWithValue("@Usuario_FUM", Convert.ToInt32(currentUser));
                             command.ExecuteNonQuery();

@@ -27,7 +27,6 @@ namespace OXXO.Controllers
         {
             return View();
         }
-
   
         public ActionResult Login(string? alert)
         {
@@ -95,7 +94,6 @@ namespace OXXO.Controllers
                     ViewBag.Alert = CommonServices.ShowAlert(Alerts.Danger, ex.Message);
                     return View(new { alert = ViewBag.Alert});
                 }
-
             }
             else
             {
@@ -128,7 +126,6 @@ namespace OXXO.Controllers
 
                 throw;
             }
-            
         }
 
         public bool existeContraseña(string password)
@@ -157,9 +154,6 @@ namespace OXXO.Controllers
             }
       
         }
-
-
-
         public IActionResult LogOut()
         {
             try
@@ -174,8 +168,6 @@ namespace OXXO.Controllers
                 ViewBag.Alert = CommonServices.ShowAlert(Alerts.Danger, "Hubo un problema al cerrar la sesión. (LOGOUT)");
                 return View(new { alert = ViewBag.Alert });
             }
-          
         }
-
     }
 }

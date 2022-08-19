@@ -133,7 +133,7 @@ namespace OXXO.Controllers
                         Banco banco = new Banco
                         {
                             IdBanco = Convert.ToInt32(dataReader["IdBanco"]),
-                            //Bancos = Convert.ToString(dataReader["Bancos"])
+                            Nombre = Convert.ToString(dataReader["Nombre"])
                         };
 
                         BancoList.Add(banco);
@@ -196,7 +196,7 @@ namespace OXXO.Controllers
                             Portal = dr.IsDBNull("Portal") ? "" : Convert.ToString(dr["Portal"]);
                             Direccion = dr.IsDBNull("Direccion") ? "" : Convert.ToString(dr["Direccion"]);
                             CuentaDeposito = dr.IsDBNull("CuentaDeposito") ? "" : Convert.ToString(dr["CuentaDeposito"]);
-                            Banco = dr.IsDBNull("Banco") ? "" : Convert.ToString(dr["Banco"]);
+                            Banco = dr.IsDBNull("Nombre") ? "" : Convert.ToString(dr["Nombre"]);
                             PersonaFisica = dr.IsDBNull("PersonaFisica") ? "" : Convert.ToString(dr["PersonaFisica"]);
                             PersonaMoral = dr.IsDBNull("PersonaMoral") ? "" : Convert.ToString(dr["PersonaMoral"]);
                         }
