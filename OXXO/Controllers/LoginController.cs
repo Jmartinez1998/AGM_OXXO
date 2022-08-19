@@ -21,7 +21,7 @@ namespace OXXO.Controllers
         public LoginController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
         }
         public IActionResult Home()
         {

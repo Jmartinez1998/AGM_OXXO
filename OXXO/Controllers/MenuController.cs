@@ -20,7 +20,7 @@ namespace OXXO.Controllers
         List<Menu> MenuList = new List<Menu>();
         List<Permisos> permisos = new List<Permisos>();
         
-        public MenuController(IConfiguration configuration) { Configuration = configuration; dbConn = Configuration["ConnectionStrings:ConexionString"]; }
+        public MenuController(IConfiguration configuration) { Configuration = configuration; dbConn = Configuration["ConnectionStrings:DefaultConnection"]; }
         public PartialViewResult MostrarMenu()
         
         {

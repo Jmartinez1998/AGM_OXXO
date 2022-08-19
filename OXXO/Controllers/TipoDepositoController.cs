@@ -22,7 +22,7 @@ namespace OXXO.Controllers
         public TipoDepositoController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
         }
         public IActionResult Index(string? alert, string NombreDeposito, string Activo)
         {

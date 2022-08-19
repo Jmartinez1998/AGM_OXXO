@@ -28,7 +28,7 @@ namespace OXXO.Controllers
         public CargaDocumentosController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
 
         }
 

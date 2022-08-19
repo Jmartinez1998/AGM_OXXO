@@ -19,7 +19,6 @@ namespace OXXO.Models
         public string Encabezado { get; set; }
         public int Item { get; set; }
         public int? IdControlador { get; set; }
-
         public virtual Controlador IdControladorNavigation { get; set; }
         public virtual ICollection<RolControlador> RolControlador { get; set; }
     }

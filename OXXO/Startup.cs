@@ -12,6 +12,8 @@ using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
 using OXXO.Models;
+using OXXO.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace OXXO
 {
@@ -29,14 +31,16 @@ namespace OXXO
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("ConexionString");
-           
+            // Configuracion de la Base de datos
+            services.AddDbContext<AplicationDbContext>(options =>
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
+            );
             services.AddDistributedMemoryCache();
             services.Configure<CookiePolicyOptions>(options => {
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
  
             });
-
 
             services.AddControllersWithViews();
 
@@ -46,7 +50,6 @@ namespace OXXO
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
             
         }
         //revisa si existen datos, si no existen creara el user,permisos,controladores y acciones

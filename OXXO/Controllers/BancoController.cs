@@ -12,17 +12,24 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+
+using OXXO.Data;
+using System;
 
 namespace OXXO.Controllers
 {
     public class BancoController : Controller
     {
+        private readonly AplicationDbContext _db;
         string dbConn = "";
         public IConfiguration Configuration { get; }
-        public BancoController(IConfiguration configuration)
+        public BancoController(IConfiguration configuration,
+            AplicationDbContext context)
         {
+            _db = context;
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
         }
         public IActionResult Index(string? alert, string NombreBanco, string Activo)
         {
@@ -36,7 +43,13 @@ namespace OXXO.Controllers
                 Permisos permisos = new Permisos();
                 if (!String.IsNullOrEmpty(NombreBanco) && !String.IsNullOrEmpty(Activo))
                 {
+                    consulta = _db.Banco
+                        .Where(p => p.BancoName
+                        .Contains(NombreBanco)).ToString();
+
+                    // Cambir a linq o EF
                     consulta = "SELECT * FROM Banco WHERE Banco LIKE '%" + NombreBanco + "%' AND Activo =" + Activo;
+
                 }
                 else if (!String.IsNullOrEmpty(NombreBanco))
                 {
@@ -49,6 +62,7 @@ namespace OXXO.Controllers
                 else
                 {
                     consulta = "SELECT * FROM Banco";
+                    consulta = "";
                 }
 
                 List<Banco> BancoLista = new List<Banco>();
@@ -66,7 +80,7 @@ namespace OXXO.Controllers
                                 Banco clsBanco = new Banco();
 
                                 clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                                clsBanco.Bancos = Convert.ToString(dr["Banco"]);
+                                clsBanco.BancoName = Convert.ToString(dr["BancoName"]);
                                 clsBanco.Activo = Convert.ToInt32(dr["Activo"]);
 
 
@@ -95,11 +109,9 @@ namespace OXXO.Controllers
             }
             catch (Exception ex)
             {
-
                 ViewBag.Alert = CommonServices.ShowAlert(Alerts.Danger, ex.Message);
                 return RedirectToAction(nameof(Index), new { alert = ViewBag.Alert });
             }
-
         }
 
         [HttpGet]
@@ -125,7 +137,7 @@ namespace OXXO.Controllers
                             {
                                 command.CommandType = CommandType.StoredProcedure;
 
-                                command.Parameters.AddWithValue("@Banco", clsBanco.Bancos);
+                                command.Parameters.AddWithValue("@Banco", clsBanco.BancoName);
                                 //command.Parameters.AddWithValue("@Activo", clsBanco.Activo);
                                 command.Parameters.AddWithValue("@Usuario_FAI", currentUser);
 
@@ -194,7 +206,7 @@ namespace OXXO.Controllers
                         while (dr.Read())
                         {
                             clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                            clsBanco.Bancos = Convert.ToString(dr["Banco"]);
+                            clsBanco.BancoName = Convert.ToString(dr["Banco"]);
                             clsBanco.Activo = Convert.ToInt32(dr["Activo"]);
                         }
                     }
@@ -227,7 +239,7 @@ namespace OXXO.Controllers
                         {
                             command.CommandType = CommandType.StoredProcedure;
                             command.Parameters.AddWithValue("@IdBanco", clsBanco.IdBanco);
-                            command.Parameters.AddWithValue("@Banco", clsBanco.Bancos);
+                            command.Parameters.AddWithValue("@Banco", clsBanco.BancoName);
                             command.Parameters.AddWithValue("@Activo", clsBanco.Activo);
                             command.Parameters.AddWithValue("@Usuario_FUM", Convert.ToInt32(currentUser));
                             command.ExecuteNonQuery();
@@ -244,7 +256,6 @@ namespace OXXO.Controllers
             }
             catch (Exception)
             {
-
                 ViewBag.Alert = CommonServices.ShowAlert(Alerts.Danger, "Favor de revisar su conexión al editar.");
                 return RedirectToAction(nameof(Index), new { alert = ViewBag.Alert });
             }

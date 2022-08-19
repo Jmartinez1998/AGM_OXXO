@@ -11,15 +11,15 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 </div>
 <div class="offcanvas-body">
-    <h6 class="card-subtitle mb-2 text-muted">Nombre del Banco: @Model.Bancos</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Nombre del Banco: @Model.BancoName</h6>
     <form id="FormEditar" asp-action="Editar" class="p-3">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="IdBanco" />
 
         <div class="row">
             <div class="mb-3">
-                <label asp-for="Bancos">Nombre del Banco</label>
-                <input asp-for="Bancos" class="form-control" autocomplete="off" required/><span asp-validation-for="Bancos" class="text-danger"></span>
+                <label asp-for="BancoName">Nombre del Banco</label>
+                <input asp-for="BancoName" class="form-control" autocomplete="off" required/><span asp-validation-for="BancoName" class="text-danger"></span>
             </div>
 
             <div class="mb-3">

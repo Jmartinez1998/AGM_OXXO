@@ -22,7 +22,7 @@ namespace OXXO.Controllers
         public UsuariosController(IConfiguration configuration) 
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
             
         }
         public IActionResult Index(string? alert, string Nombre, string UserName)
@@ -72,7 +72,6 @@ namespace OXXO.Controllers
                                 clsUsuario.Vigencia = Convert.ToDateTime(dr["Vigencia"]);
                                 clsUsuario.Puesto = Convert.ToString(dr["Puesto"]);
                                 ListaUsuarios.Add(clsUsuario);
-
                             }
                         }
                         connection.Close();

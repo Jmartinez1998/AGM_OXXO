@@ -21,18 +21,12 @@ namespace OXXO.Controllers
 {
     public class AltaController : Controller
     {
-
-        
         string dbConn = "", host="",port = "",fromAddress ="",passwordmail="";
-
-
         public IConfiguration Configuration { get; }
-
-        //
         public AltaController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
 
             host = Configuration["Smtp-Server"];
             port = Configuration["Smtp-Port"];
@@ -51,14 +45,15 @@ namespace OXXO.Controllers
 
         //Este metodo es el encargado de dar de alta los registros de los comercios
         [HttpPost]
-        public IActionResult Index(string Rfc, string NombreCompleto, string Telefono, string Correo, string Direccion, string CuentaDeposito, int IdBanco, string RazonSocial, string NombreComercial, int IdGiroComercio, string Portal, int Persona, int Usuario_FAl, int Usuario_FUM, int IdTipoDeposito)
+        //string Rfc, string NombreCompleto, string Telefono, string Correo, string Direccion, string CuentaDeposito, int IdBanco, string RazonSocial, string NombreComercial, int IdGiroComercio, string Portal, int Persona, int Usuario_FAl, int Usuario_FUM, int IdTipoDeposito
+        public IActionResult Index(Comercio comercio)
         {
             //Id perfil asociado a la sesion abierta.
             int IdPerfil = Int32.Parse(HttpContext.Session.GetString("IdPerfil"));
 
-            if (!String.IsNullOrEmpty(Rfc))
+            if (!String.IsNullOrEmpty(comercio.RFC))
             {
-                HttpContext.Session.SetString("RFC", Rfc);
+                HttpContext.Session.SetString("RFC", comercio.RFC);
             }
            
             string RFC = HttpContext.Session.GetString("RFC");
@@ -73,20 +68,20 @@ namespace OXXO.Controllers
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@RFC", RFC);
-            command.Parameters.AddWithValue("@NombreCompleto", NombreCompleto);
-            command.Parameters.AddWithValue("@Telefono", Telefono);
-            command.Parameters.AddWithValue("@Correo", Correo);
-            command.Parameters.AddWithValue("@Direccion", Direccion);
-            command.Parameters.AddWithValue("@CuentaDeposito", CuentaDeposito);
-            command.Parameters.AddWithValue("@IdBanco", IdBanco);
-            command.Parameters.AddWithValue("@RazonSocial", RazonSocial);
-            command.Parameters.AddWithValue("@NombreComercial", NombreComercial);
-            command.Parameters.AddWithValue("@IdGiroComercio", IdGiroComercio);
-            command.Parameters.AddWithValue("@Portal", Portal);
-            command.Parameters.AddWithValue("@Persona", Persona);
+            command.Parameters.AddWithValue("@NombreCompleto", comercio.NombreCompleto);
+            command.Parameters.AddWithValue("@Telefono", comercio.Telefono);
+            command.Parameters.AddWithValue("@Correo", comercio.Correo);
+            command.Parameters.AddWithValue("@Direccion", comercio.Direccion);
+            command.Parameters.AddWithValue("@CuentaDeposito", comercio.CuentaDeposito);
+            command.Parameters.AddWithValue("@IdBanco", comercio.IdBanco);
+            command.Parameters.AddWithValue("@RazonSocial", comercio.RazonSocial);
+            command.Parameters.AddWithValue("@NombreComercial", comercio.NombreComercial);
+            command.Parameters.AddWithValue("@IdGiroComercio", comercio.IdGiroComercio);
+            command.Parameters.AddWithValue("@Portal", comercio.Portal);
+            command.Parameters.AddWithValue("@Persona", comercio.PersonaFisica);
             command.Parameters.AddWithValue("@Usuario_FAl", IdPerfil);
             command.Parameters.AddWithValue("@Usuario_FUM", IdPerfil);
-            command.Parameters.AddWithValue("@IdTipoDeposito", IdTipoDeposito);
+            command.Parameters.AddWithValue("@IdTipoDeposito", comercio.IdTipoDeposito);
 
             command.Parameters.Add("@Mensaje", SqlDbType.NVarChar, 100);
             command.Parameters["@Mensaje"].Direction = ParameterDirection.Output;
@@ -138,7 +133,7 @@ namespace OXXO.Controllers
                         Banco banco = new Banco
                         {
                             IdBanco = Convert.ToInt32(dataReader["IdBanco"]),
-                            Bancos = Convert.ToString(dataReader["Bancos"])
+                            //Bancos = Convert.ToString(dataReader["Bancos"])
                         };
 
                         BancoList.Add(banco);

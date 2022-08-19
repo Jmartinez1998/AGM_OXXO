@@ -22,7 +22,7 @@ namespace OXXO.Controllers
         public MantenimientoController(IConfiguration configuration)
         {
             Configuration = configuration;
-            dbConn = Configuration["ConnectionStrings:ConexionString"];
+            dbConn = Configuration["ConnectionStrings:DefaultConnection"];
         }
         public IActionResult Index(string? alert, string IdEmisor)
         {
@@ -256,7 +256,7 @@ namespace OXXO.Controllers
                         {
                             Banco clsBanco = new Banco();
                             clsBanco.IdBanco = Convert.ToInt32(dr["IdBanco"]);
-                            clsBanco.Bancos = Convert.ToString(dr["Banco"]);
+                            clsBanco.BancoName = Convert.ToString(dr["Banco"]);
 
                             ListaBancos.Add(clsBanco);
                         }

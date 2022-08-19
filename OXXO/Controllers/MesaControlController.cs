@@ -580,7 +580,7 @@ namespace OXXO.Controllers
         {
             List<Banco> BancoList = new List<Banco>();
 
-            string connectionString = Configuration["ConnectionStrings:ConexionString"];
+            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -595,7 +595,7 @@ namespace OXXO.Controllers
                         Banco banco = new Banco
                         {
                             IdBanco = Convert.ToInt32(dataReader["IdBanco"]),
-                            Bancos = Convert.ToString(dataReader["Bancos"])
+                            BancoName = Convert.ToString(dataReader["Bancos"])
                         };
 
                         BancoList.Add(banco);
@@ -614,7 +614,7 @@ namespace OXXO.Controllers
         {
             List<GiroComercio> GiroComercioList = new List<GiroComercio>();
 
-            string connectionString = Configuration["ConnectionStrings:ConexionString"];
+            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -743,7 +743,6 @@ namespace OXXO.Controllers
                             listComercio.Add(cmc);
                         }
 
-
                         var perms = new PermisosController(Configuration).GetPermisosUsuario("Index", "MesaControl", puestoUser);
                         res.permiso = perms.Editar;
                         res.editar = perms.edicion;
@@ -755,16 +754,9 @@ namespace OXXO.Controllers
                         res.data = listComercio;
                         //VOLVER A REEMPLAZAR LA CONSULTA PARA OBTENER LOS PERMISOS DE ACUERDO AL PERFIL O USUARIO SEGÚN INICIADA LA SESIÓN
                         //res.perfilData = perms.perfilList;
-                        
-
                         json.Add(res);
                         connection.Close();
-
-
-                       
-
                         return JsonConvert.SerializeObject(json);
-
                     }
 
                 }
@@ -839,7 +831,6 @@ namespace OXXO.Controllers
                 ViewBag.Alert = CommonServices.ShowAlert(Alerts.Danger, ex.Message);
                 return RedirectToAction(nameof(Index), new { alert = ViewBag.Alert });
             }
-
         }
 
         // Metodo encargado de cambiar el estatus de un comercio a "Aprobado"
@@ -856,7 +847,7 @@ namespace OXXO.Controllers
             HttpContext.Session.SetString("RFC", RFC);
 
 
-            string connectionString = Configuration["ConnectionStrings:ConexionString"];
+            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             using SqlConnection connection = new SqlConnection(connectionString);
 
             try
@@ -895,20 +886,15 @@ namespace OXXO.Controllers
             HttpContext.Session.SetString("RFC", RFC);
 
 
-            string connectionString = Configuration["ConnectionStrings:ConexionString"];
+            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             using SqlConnection connection = new SqlConnection(connectionString);
 
             try
             {
                 connection.Open();
                 using SqlCommand command3 = new SqlCommand("SP_RechazarComercio", connection);
-
                 command3.CommandType = CommandType.StoredProcedure;
-
                 command3.Parameters.AddWithValue("@RFC", RFC);
-
-
-
                 command3.ExecuteNonQuery();
                 connection.Close();
 
