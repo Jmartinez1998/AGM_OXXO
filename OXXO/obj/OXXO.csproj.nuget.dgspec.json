@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Integracorp\\Desktop\\OXXO-main\\OXXO\\OXXO\\OXXO.csproj": {}
+    "C:\\Users\\Integra\\Desktop\\DEV\\OXXO\\OXXO\\OXXO.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Integracorp\\Desktop\\OXXO-main\\OXXO\\OXXO\\OXXO.csproj": {
+    "C:\\Users\\Integra\\Desktop\\DEV\\OXXO\\OXXO\\OXXO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Integracorp\\Desktop\\OXXO-main\\OXXO\\OXXO\\OXXO.csproj",
+        "projectUniqueName": "C:\\Users\\Integra\\Desktop\\DEV\\OXXO\\OXXO\\OXXO.csproj",
         "projectName": "OXXO",
-        "projectPath": "C:\\Users\\Integracorp\\Desktop\\OXXO-main\\OXXO\\OXXO\\OXXO.csproj",
-        "packagesPath": "C:\\Users\\Integracorp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Integracorp\\Desktop\\OXXO-main\\OXXO\\OXXO\\obj\\",
+        "projectPath": "C:\\Users\\Integra\\Desktop\\DEV\\OXXO\\OXXO\\OXXO.csproj",
+        "packagesPath": "C:\\Users\\Integra\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Integra\\Desktop\\DEV\\OXXO\\OXXO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Integracorp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Integra\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.410\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -38,7 +38,6 @@ namespace OXXO.Controllers
                 {
                     consulta = "SELECT * FROM Banco WHERE Banco LIKE '%" + NombreBanco + "%' AND Activo =" + Activo;
                 }
-                
                 else if (!String.IsNullOrEmpty(NombreBanco))
                 {
                     consulta = "SELECT * FROM Banco WHERE Banco LIKE '%" + NombreBanco + "%'";
